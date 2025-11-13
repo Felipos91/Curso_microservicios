@@ -1,0 +1,14 @@
+package org.mscv.cursos.controllers;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CursoController {
+
+	
+	@Autowired
+	private CursoService service;
+	
+	@GetMapping
+	public ResponseEntity.ok(service.listar());
+}

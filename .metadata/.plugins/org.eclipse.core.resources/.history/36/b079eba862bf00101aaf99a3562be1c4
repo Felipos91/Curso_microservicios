@@ -1,0 +1,5 @@
+package org.mscv.usuarios;
+
+public interface UsuarioService {
+
+}

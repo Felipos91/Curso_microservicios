@@ -1,0 +1,22 @@
+package org.mscv.usuarios.controllers;
+
+import java.util.List;
+
+import org.mscv.usuarios.models.entity.Usuario;
+import org.mscv.usuarios.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class UsuarioController {
+	
+	@Autowired
+	private UsuarioService service;
+	
+	@GetMapping
+	public List<Usuario> listar(){
+		return service.listar();
+		
+	}
+}

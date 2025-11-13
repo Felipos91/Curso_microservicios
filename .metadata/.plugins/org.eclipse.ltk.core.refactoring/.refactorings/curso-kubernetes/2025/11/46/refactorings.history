@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;curso-kubernetes/mscv-usuarios/src/main/java/org/mscv/usuarios/App.java&apos; to &apos;MscvUsuariosApplication.java&apos;" description="Rename resource &apos;App.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="mscv-usuarios/src/main/java/org/mscv/usuarios/App.java" name="MscvUsuariosApplication.java" stamp="1762826509207" updateReferences="true"/>
+</session>

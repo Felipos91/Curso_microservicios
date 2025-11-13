@@ -1,0 +1,5 @@
+package org.mscv.cursos.entity;
+
+public class Curso {
+
+}

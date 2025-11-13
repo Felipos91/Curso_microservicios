@@ -1,0 +1,5 @@
+package org.mscv.usuarios.repositories;
+
+public interface UsuarioRepository {
+
+}

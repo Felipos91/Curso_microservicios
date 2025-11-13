@@ -1,0 +1,13 @@
+package org.mscv.cursos.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="cursos")
+public class Curso {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long Id;
+	private String nombre;
+}

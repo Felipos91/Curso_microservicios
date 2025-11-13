@@ -1,0 +1,6 @@
+package org.mscv.cursos.services;
+
+@Service
+public class CursoServiceImpl {
+
+}

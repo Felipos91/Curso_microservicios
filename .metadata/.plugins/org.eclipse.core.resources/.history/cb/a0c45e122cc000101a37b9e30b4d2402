@@ -1,0 +1,7 @@
+package org.mscv.cursos.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface CursoRepository extends CrudRepository<T, ID>D{
+
+}

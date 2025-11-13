@@ -1,0 +1,5 @@
+package org.mscv.usuarios.controllers;
+
+public class UsuarioController {
+
+}

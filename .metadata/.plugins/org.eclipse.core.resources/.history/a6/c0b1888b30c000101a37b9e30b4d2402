@@ -1,0 +1,10 @@
+spring.application.name=mscv-cursos
+server.port=8002
+spring.datasource.url=jbdc:postgresql://localhost:5432/mscv_curso
+spring.datasource.username=postgres
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL10Dialect
+spring.jpa.generate-ddl=true
+logging.level.org.hibernate.SQL=debug
+
+spring.jpa.properties.hibernate.jdbc.log.lob.non_contextual_creation=true

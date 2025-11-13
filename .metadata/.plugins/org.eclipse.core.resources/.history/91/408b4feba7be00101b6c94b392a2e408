@@ -1,0 +1,5 @@
+package org.mscv.usuarios.models.entity;
+
+public class Usuario {
+
+}

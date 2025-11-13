@@ -1,0 +1,9 @@
+package org.mscv.usuarios;
+
+import java.util.List;
+
+import org.mscv.usuarios.models.entity.Usuario;
+
+public interface UsuarioService {
+	List<Usuario> listar ();
+}
