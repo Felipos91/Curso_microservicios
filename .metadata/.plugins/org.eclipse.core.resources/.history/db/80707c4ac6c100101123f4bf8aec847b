@@ -1,0 +1,7 @@
+package org.mscv.cursos.clients;
+
+@FeignClient(name="mscv-usuarios")
+public interface UsuarioClientRest {
+
+	
+}

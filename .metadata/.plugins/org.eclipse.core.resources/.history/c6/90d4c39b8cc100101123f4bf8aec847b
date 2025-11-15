@@ -1,0 +1,12 @@
+package org.mscv.usuarios.repositories;
+
+import org.mscv.usuarios.models.entity.Usuario;
+import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+
+public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
+
+	Optional<Usuario> findList<Usuario> findByEmail(String email);
+	
+}

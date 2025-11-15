@@ -1,13 +1,16 @@
 package org.mscv.cursos.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import org.mscv.cursos.entity.Curso;
+import org.mscv.cursos.models.entity.Curso;
 import org.mscv.cursos.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class CursoController {
@@ -30,6 +35,7 @@ public class CursoController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> detalle(@PathVariable Long id){
+		
 		Optional<Curso> o=service.porId(id);
 		if(o.isPresent()) {
 			return ResponseEntity.ok(o.get());
@@ -38,13 +44,31 @@ public class CursoController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<?> crear(@RequestBody Curso curso){
+	public ResponseEntity<?> crear(@Valid @RequestBody Curso curso, BindingResult result){
+		
+		if(result.hasErrors()) {
+			Map<String, String> errores=new HashMap<>();
+			result.getFieldErrors().forEach(err -> {
+				errores.put(err.getField(), "El campo"+ err.getField()+" "+ err.getDefaultMessage());
+			});
+			return ResponseEntity.badRequest().body(errores);
+		}
+		
 		Curso cursoDb=service.guardar(curso);
 		return ResponseEntity.status(HttpStatus.CREATED).body(cursoDb);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> editar(@RequestBody Curso curso, @PathVariable Long id){
+	public ResponseEntity<?> editar(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id){
+		
+		if(result.hasErrors()) {
+			Map<String, String> errores=new HashMap<>();
+			result.getFieldErrors().forEach(err -> {
+				errores.put(err.getField(), "El campo"+ err.getField()+" "+ err.getDefaultMessage());
+			});
+			return ResponseEntity.badRequest().body(errores);
+		}
+		
 		Optional<Curso> o=service.porId(id);
 		if(o.isPresent()) {
 			Curso cursoDb=o.get();

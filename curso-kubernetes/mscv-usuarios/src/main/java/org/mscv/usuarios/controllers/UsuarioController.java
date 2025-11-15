@@ -1,6 +1,9 @@
 package org.mscv.usuarios.controllers;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.mscv.usuarios.models.entity.Usuario;
@@ -8,6 +11,7 @@ import org.mscv.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class UsuarioController {
@@ -37,15 +43,49 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> crear(@RequestBody Usuario usuario) {
+	public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario, BindingResult result) {
+		
+		
+		
+		if(result.hasErrors()) {
+			Map<String, String> errores=new HashMap<>();
+			result.getFieldErrors().forEach(err -> {
+				errores.put(err.getField(), "El campo"+ err.getField()+" "+ err.getDefaultMessage());
+			});
+			return ResponseEntity.badRequest().body(errores);
+		}
+		
+		if(!usuario.getEmail().isEmpty() && service.existePorEmail(usuario.getEmail())) {
+			return ResponseEntity.badRequest()
+					.body(Collections.
+							singletonMap("mensaje", "Usuario Existente"));
+		}
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> crear(@RequestBody Usuario usuario, @PathVariable Long id){
+	public ResponseEntity<?> crear(@Valid @RequestBody Usuario usuario,BindingResult result , @PathVariable Long id){
+		
+		
+		if(result.hasErrors()) {
+			Map<String, String> errores=new HashMap<>();
+			result.getFieldErrors().forEach(err -> {
+				errores.put(err.getField(), "El campo"+ err.getField()+" "+ err.getDefaultMessage());
+			});
+			return ResponseEntity.badRequest().body(errores);
+		}
+		
 		Optional<Usuario> o=service.porId(id);
 		if (o.isPresent()){
 			Usuario usuarioDb=o.get();
+			
+			if(!usuario.getEmail().isEmpty() && !usuario.getEmail().equalsIgnoreCase(usuarioDb.getEmail()) && service.porEmail(usuario.getEmail()).isPresent()) {
+				return ResponseEntity.badRequest()
+						.body(Collections.
+								singletonMap("mensaje", "Usuario Existente"));
+			}
+			
 			usuarioDb.setNombre(usuario.getNombre());
 			usuarioDb.setEmail(usuario.getEmail());
 			usuarioDb.setPassword(usuario.getPassword());

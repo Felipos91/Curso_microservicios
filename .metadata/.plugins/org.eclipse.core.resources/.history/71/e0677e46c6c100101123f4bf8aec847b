@@ -1,0 +1,5 @@
+package org.mscv.cursos.clients;
+
+public interface UsuarioClientRest {
+
+}

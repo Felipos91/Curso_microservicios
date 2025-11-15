@@ -1,0 +1,8 @@
+package org.mscv.cursos.clients;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name="mscv-usuarios", url="localhost:8001")
+public interface UsuarioClientRest {
+	
+}

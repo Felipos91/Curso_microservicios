@@ -1,0 +1,42 @@
+package org.mscv.cursos.entity;
+
+import java.util.List;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+
+@Entity
+@Table(name="cursos")
+public class Curso {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long Id;
+	
+	@NotEmpty
+	private String nombre;
+	
+	@OneToMany(cascade=CascadeType.All)
+	private List<CursoUsuario> cursoUsuarios;
+	
+	public List<CursoUsuario> getCursoUsuarios() {
+		return cursoUsuarios;
+	}
+	public void setCursoUsuarios(List<CursoUsuario> cursoUsuarios) {
+		this.cursoUsuarios = cursoUsuarios;
+	}
+	public Long getId() {
+		return Id;
+	}
+	public void setId(Long id) {
+		Id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
+}

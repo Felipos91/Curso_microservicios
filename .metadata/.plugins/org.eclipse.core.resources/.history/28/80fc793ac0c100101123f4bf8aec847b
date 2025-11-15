@@ -1,0 +1,5 @@
+package org.mscv.cursos.models;
+
+public class Usuario {
+
+}

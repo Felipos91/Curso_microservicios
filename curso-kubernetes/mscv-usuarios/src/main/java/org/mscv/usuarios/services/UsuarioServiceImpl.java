@@ -43,4 +43,16 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 	}
 
+	@Override
+	public Optional<Usuario> porEmail(String email) {
+		
+		return repository.findByEmail(email);
+	}
+
+	@Override
+	public boolean existePorEmail(String email) {
+		// TODO Auto-generated method stub
+		return repository.existsByEmail(email);
+	}
+
 }
